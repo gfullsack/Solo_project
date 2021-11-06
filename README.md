@@ -1,2 +1,3 @@
-# Solo_project
- Solo_project
+Broken as heck 
+
+Suicide Letter at best 

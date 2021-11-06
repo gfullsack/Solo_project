@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Tea</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<body>
+    <nav class="d-flex justify-content-between align-items-center col-12">
+        <h2 class="text-center">Arbortary - A site to track arbitrarly planted teas </h2>
+        <h1 class="text-right">Welcome {{user.first_name}}!!!</h1>
+        <div class="d-flex col-4 justify-content-around">
+            <a href="/dashboard" class="btn btn-primary">Return to Dashboard</a>
+            <a href="/new/tea" class="btn btn-primary">Plant a new Tea</a>
+            <a href="/logout" class="btn btn-info">Logout</a>
+
+        </div>
+
+    </nav>
+    <div class="col-8 mx-auto">
+
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>name</th>
+                    <th>Location</th>
+                    <th>tea_color</th>
+                    <th>Date and Time</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for tea in user.teas %}
+                <tr>
+                    <td>{{ tea.name }}</td>
+                    <td>{{ tea.location }}</td>
+                    <td>{{ tea.tea_color }}</td>
+                    <td>{{ tea.date_made }}</td>
+                    <td>                                                
+                        <a href="/destroy/tea/{{tea.id}}">Delete</a>
+                        <a href="/edit/tea/{{tea.id}}">Edit</a>                        
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
