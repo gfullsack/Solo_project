@@ -9,11 +9,11 @@
 </head>
 <body>
     <nav class="d-flex justify-content-between align-items-center col-12">
-        <h2 class="text-center">Arbortary - A site to track arbitrarly planted teas </h2>
+        <h2 class="text-center">TEA SHOP - A site to track arbitrarly planted teas and brew said tea </h2>
         <h1 class="text-right">Welcome {{user.first_name}}!!!</h1>
         <div class="d-flex col-4 justify-content-around">
             <a href="/my_teas/{{user.id}}" class="btn btn-primary">My Teas</a>
-            <a href="/new/tea" class="btn btn-primary">Plant a Tea</a>
+            <a href="/new/tea" class="btn btn-primary">Brew a tea</a>
             <a href="/logout" class="btn btn-info">Logout</a>
 
         </div>
@@ -25,6 +25,8 @@
             <thead>
                 <tr>
                     <th>name</th>
+                    <th>Tea Color</th>
+                    <th>location</th>
                     <th>Planeted By</th>
                     <th>Actions</th>
                 </tr>
@@ -33,6 +35,8 @@
                 {% for tea in all_teas %}
                 <tr>
                     <td>{{ tea.name }}</td>
+                    <td style="color:{{ tea.tea_color}}" >{{ tea.tea_color}}</td>
+                    <td>{{ tea.location}}</td>
                     <td>{{ tea.founder.first_name }} {{ tea.founder.last_name }}</td>
                     <td>
                         <a href="/tea/{{tea.id}}">View tea</a>
