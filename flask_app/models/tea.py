@@ -16,6 +16,7 @@ class Tea:
         self.updated_at = db_data['updated_at']
         self.founder = []
         self.set_founder();
+        self.users = []
 
     @classmethod
     def save(cls,data):
@@ -105,3 +106,23 @@ class Tea:
             is_valid = False
             flash("Please enter a date","tea")
         return is_valid
+
+    @classmethod
+    def get_vistors_from_teas( cls , data ):
+        query = "SELECT * FROM teas JOIN vistors ON vistors.tea_id = tea.id LEFT JOIN users ON vistors.user_id = user.id WHERE teas.id = %(id)s;"
+    	results = connectToMySQL('teas').query_db( query , data )
+        # results will be a list of topping objects with the vistor  attached to each row. 
+    	vistor = cls( results[0] )
+        for row_from_db in results:
+
+            vistor_data = {
+                    'id' : row['users.id'],
+                    'first_name' : row['first_name'],
+                    'last_name' : row['last_name'],
+                    'email' : row['email'],
+                    'password' : row['password'],
+                    'created_at' : row['users.created_at'],
+                    'updated_at' :row['users.updated_at']
+                }
+            vistor.vistors.append( vister.Vister( vistor_data ) )
+    	return vistor 

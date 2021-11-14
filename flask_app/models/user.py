@@ -88,3 +88,27 @@ class User:
         if user['password'] != user['confirm']:
             flash("Passwords don't match","register")
         return is_valid
+
+
+    @classmethod
+    def get_vistors_with_teas( cls , data ):
+        query = "SELECT * FROM users LEFT JOIN vistors ON vistors.user_id = vister.id LEFT JOIN tea ON vistors.tea_id = teas.id WHERE users.id = %(id)s;"
+        results = connectToMySQL('teas').query_db( query , data )
+        # results will be a list of vistors objects . 
+        vistors = cls( results[0] )
+        for row_from_db in results:
+            # Now we parse the topping data to make instances of vistors
+            tea_data = {
+                'id' : row['teas.id'],
+                'name' : row['name'],
+                'location' : row['location'],
+                'tea_color' : row['tea_color'],
+                'date_made' : row['date_made'],
+                'user_id' : row['user_id'],
+                'created_at' : row['teas.created_at'],
+                'updated_at' :row['teas.updated_at']
+            }
+            vistor_user_teas = tea.Tea(tea_data)
+            vistor_one_users.teas.append(vistors_user_teas)
+        return vistor_one_users
+
