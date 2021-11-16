@@ -86,9 +86,29 @@ def show_tea(id):
     user_data = {
         "id":session['user_id']
     }
-    print(Tea.get_one_tea(data))
-
     return render_template("show_tea.html",tea=Tea.get_one_tea(data),user=User.get_by_id(user_data))
+
+@app.route('/tea/<int:id>/like')
+def like_tea(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    user_data = {
+        "user_id":session['user_id'],
+        "tea_id": id
+    }
+    Tea.like_tea(user_data)
+    return redirect(f'/tea/{id}')
+
+@app.route('/tea/<int:id>/visit')
+def visit_tea(id):
+    if 'user_id' not in session:
+        return redirect('/logout')
+    user_data = {
+        "user_id":session['user_id'],
+        "tea_id": id
+    }
+    Tea.visit_tea(user_data)
+    return redirect(f'/tea/{id}')
 
 @app.route('/my_teas/<int:id>')
 def my_teas(id):

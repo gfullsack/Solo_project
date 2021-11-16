@@ -43,7 +43,9 @@ class User:
     def get_by_id(cls,data):
         query = "SELECT * FROM users WHERE id = %(id)s;"
         results = connectToMySQL(cls.db_name).query_db(query,data)
-        return cls(results[0])
+        if results:
+            return cls(results[0])
+        return None
 
     @classmethod
     def get_my_tea(cls,data):

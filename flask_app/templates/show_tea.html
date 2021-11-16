@@ -27,21 +27,22 @@
         </div>
         <div class="card col-10 mx-auto my-5 bg-dark text-light">
             <div class="card-body">
+                <h1>likers</h1>
                 {% for likers in tea.likes %}
                 <p class="card-text">Liker First name:   {{likers.first_name}}</p>
                 <p class="card-text">Liker last name:  {{likers.last_name}}</p>
                 {% endfor %}
             </div>
-            <div class="card col-10 mx-auto my-5 bg-dark text-light">
-                <div class="card-body">
-                    {% for vistors in tea.vistors %}
-                    <p class="card-text">Liker First name:   {{vistors.first_name}}</p>
-                    <p class="card-text">Liker last name:  {{vistors.last_name}}</p>
-                    {% endfor %}
-                </div>
-            </div>             
+            <div>
+                <h1>Visitors</h1>
+                {% for likers in tea.visitors %}
+                <p class="card-text">Liker First name:   {{visitors.first_name}}</p>
+                <p class="card-text">Liker last name:  {{visitors.last_name}}</p>
+                {% endfor %}
+            </div>
         <div>
-            <a href="/logout" class="btn btn-info">Like Placeholder</a>
+            <a href="/tea/{{tea.id}}/like" class="btn btn-info">Like Button</a>
+            <a href="/tea/{{tea.id}}/visit" class="btn btn-info">Visitor Button</a>
         </div>
     </div>
 </body>
