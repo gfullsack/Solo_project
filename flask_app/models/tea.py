@@ -14,9 +14,10 @@ class Tea:
         self.user_id = db_data['user_id']
         self.created_at = db_data['created_at']
         self.updated_at = db_data['updated_at']
-        self.founder = []
+        self.founder = None
         self.set_founder();
-        self.users = []
+        self.vistors = []
+        self.likes = []
 
     @classmethod
     def save(cls,data):
@@ -107,22 +108,36 @@ class Tea:
             flash("Please enter a date","tea")
         return is_valid
 
-    @classmethod
-    def get_vistors_from_teas( cls , data ):
-        query = "SELECT * FROM teas JOIN vistors ON vistors.tea_id = tea.id LEFT JOIN users ON vistors.user_id = user.id WHERE teas.id = %(id)s;"
-    	results = connectToMySQL('teas').query_db( query , data )
-        # results will be a list of topping objects with the vistor  attached to each row. 
-    	vistor = cls( results[0] )
-        for row_from_db in results:
+    # @classmethod
+    # def get_visitors_from_teas( cls , data ):
+    #     query = "SELECT * FROM teas LEFT JOIN visitors ON visitors.tea_id = teas.id LEFT JOIN users ON visitors.user_id = users.id WHERE teas.id = %(id)s;"
+    #     results = connectToMySQL('teas').query_db( query , data )
+    #     # results will be a list of objects with the vistor attached to each row. 
+    #     tea = cls( results[0] )
+    #     for row in results:
+    #         vistor_data = {
+    #                 'id' : row['users.id'],
+    #                 'first_name' : row['first_name'],
+    #                 'last_name' : row['last_name'],
+    #                 'email' : row['email'],
+    #                 'password' : row['password'],
+    #                 'created_at' : row['users.created_at'],
+    #                 'updated_at' :row['users.updated_at']
+    #             }
+    #         tea.vistors.append( user.User( vistor_data ) )
+    #     return tea 
+    # Note Refer to bottom Class Method for table gathering 
 
-            vistor_data = {
-                    'id' : row['users.id'],
-                    'first_name' : row['first_name'],
-                    'last_name' : row['last_name'],
-                    'email' : row['email'],
-                    'password' : row['password'],
-                    'created_at' : row['users.created_at'],
-                    'updated_at' :row['users.updated_at']
-                }
-            vistor.vistors.append( vister.Vister( vistor_data ) )
-    	return vistor 
+
+    @classmethod
+    def get_one_tea( cls , data ):
+        query = "SELECT * FROM teas JOIN users ON user_id = users.id LEFT JOIN visitors ON visitors.tea_id = teas.id LEFT JOIN users AS visiting_users ON visitors.user_id = visiting_users.id LEFT JOIN likes ON likes.tea_id = teas.id LEFT JOIN users AS liking_users ON liking_users.id = likes.user_id WHERE teas.id = %(id)s;"
+        results = connectToMySQL('teas').query_db( query , data )
+        print(results)
+        # results will be a list of objects with the vistor attached to each row. 
+        tea = cls( results[0] )
+        for row in results:
+            tea.founder = user.User.get_by_id({'id':'users.id'})
+            tea.vistors.append(user.User.get_by_id({'id':'visiting_users.id'}))
+            tea.likes.append(user.User.get_by_id({'id':'liking_users.id'}))
+        return tea

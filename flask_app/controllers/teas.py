@@ -30,6 +30,24 @@ def create_tea():
     Tea.save(data)
     return redirect('/dashboard')
 
+# @app.route('/create/tea',methods=['POST']) Method to create Like 
+# def create_tea():
+#     if 'user_id' not in session:
+#         return redirect('/logout')
+#     if not Tea.validate_tea(request.form):
+#         return redirect('/new/tea')
+#     data = {
+#         "name": request.form["name"],
+#         "location": request.form["location"],
+#         "tea_color": request.form["tea_color"],
+#         "date_made": request.form["date_made"],
+#         "user_id": session["user_id"]
+#     }
+#     Tea.save(data)
+#     return redirect('/dashboard')
+
+
+
 @app.route('/edit/tea/<int:id>')
 def edit_tea(id):
     if 'user_id' not in session:
@@ -68,9 +86,9 @@ def show_tea(id):
     user_data = {
         "id":session['user_id']
     }
-    print(Tea.get_one(data))
+    print(Tea.get_one_tea(data))
 
-    return render_template("show_tea.html",tea=Tea.get_one(data),user=User.get_by_id(user_data))
+    return render_template("show_tea.html",tea=Tea.get_one_tea(data),user=User.get_by_id(user_data))
 
 @app.route('/my_teas/<int:id>')
 def my_teas(id):
@@ -90,3 +108,4 @@ def destroy_tea(id):
     }
     Tea.destroy(data)
     return redirect('/dashboard')
+

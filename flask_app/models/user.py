@@ -92,11 +92,11 @@ class User:
 
     @classmethod
     def get_vistors_with_teas( cls , data ):
-        query = "SELECT * FROM users LEFT JOIN vistors ON vistors.user_id = vister.id LEFT JOIN tea ON vistors.tea_id = teas.id WHERE users.id = %(id)s;"
+        query = "SELECT * FROM teas LEFT JOIN vistors ON teas.id = visters.teas_id LEFT JOIN vistors ON vistors.user_id = user_id WHERE users.id = %(id)s;"
         results = connectToMySQL('teas').query_db( query , data )
         # results will be a list of vistors objects . 
         vistors = cls( results[0] )
-        for row_from_db in results:
+        for row in results:
             # Now we parse the topping data to make instances of vistors
             tea_data = {
                 'id' : row['teas.id'],
@@ -109,6 +109,6 @@ class User:
                 'updated_at' :row['teas.updated_at']
             }
             vistor_user_teas = tea.Tea(tea_data)
-            vistor_one_users.teas.append(vistors_user_teas)
-        return vistor_one_users
+            vistors.teas.append(vistor_user_teas)
+        return vistors
 
