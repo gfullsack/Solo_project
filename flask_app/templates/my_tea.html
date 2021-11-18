@@ -36,7 +36,7 @@
                 <tr>
                     <td>{{ tea.name }}</td>
                     <td>{{ tea.location }}</td>
-                    <td>{{ tea.tea_color }}</td>
+                    <td style="color:{{ tea.tea_color}}">{{ tea.tea_color }}</td>
                     <td>{{ tea.date_made }}</td>
                     <td>                                                
                         <a href="/destroy/tea/{{tea.id}}">Delete</a>

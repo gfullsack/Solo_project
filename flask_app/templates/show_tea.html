@@ -22,7 +22,7 @@
         <div class="card-body">
             <h2 class="card-title text-primary">{{tea.name}} was brewed by {{tea.founder.first_name}} {{tea.founder.last_name}}</h2>
             <p class="card-text">Where:   {{tea.location}}</p>
-            <p style="color:{{ tea.tea_color}}">:  {{tea.tea_color}}</p>
+            <p class="card-text">tea color:  {{tea.tea_color}}</p>
             <p class="card-text">brewed:  {{tea.date_made.strftime('%Y-%m-%d')}}</p>
         </div>
         <div class="card col-10 mx-auto my-5 bg-dark text-light">
@@ -41,13 +41,8 @@
                 {% endfor %}
             </div>
         <div>
-            {% if session['user_id'] not in tea.likes%}
             <a href="/tea/{{tea.id}}/like" class="btn btn-info">Like Button</a>
-            {% endif %}
-
-            {% if session['user_id'] not in tea.likes%}
             <a href="/tea/{{tea.id}}/visit" class="btn btn-info">Visitor Button</a>
-            {% endif %}
         </div>
     </div>
 </body>
