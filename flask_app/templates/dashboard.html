@@ -28,7 +28,7 @@
                     <th>Tea Color</th>
                     <th>location</th>
                     <th>Brewed By</th>
-                    <th>Liked By</th>
+                    <!-- <th>Liked By</th> -->
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -36,11 +36,11 @@
                 {% for tea in all_teas %}
                 <tr>
                     <td>{{ tea.name }}</td>
-                    <td style="color:{{ tea.tea_color}}" >{{ tea.tea_color}}</td>
+                    <td style="color:{{ tea.tea_color}}"> {{ tea.tea_color}}</td>
                     <td>{{ tea.location}}</td>
                     <td>{{ tea.founder.first_name }} {{ tea.founder.last_name }}</td>
                     
-                    <td>{{tea.likes|length}}</td>
+                    <!-- <td>{{tea.likes|length}}</td> -->
                     
                     <td>
                         <a href="/tea/{{tea.id}}">View tea</a>
