@@ -30,14 +30,14 @@
                 <h1>likers</h1>
                 {% for likers in tea.likes %}
                 <p class="card-text">Liker First name:   {{likers.first_name}}</p>
-                <p class="card-text">Liker last name:  {{likers.last_name}}</p>
+                <p class="card-text">Liker last name:     {{likers.last_name}}</p>
                 {% endfor %}
             </div>
             <div>
                 <h1>Visitors</h1>
-                {% for likers in tea.visitors %}
-                <p class="card-text">Liker First name:   {{visitors.first_name}}</p>
-                <p class="card-text">Liker last name:  {{visitors.last_name}}</p>
+                {% for visitors in tea.visitors %}
+                <p class="card-text">Visitor First name: {{visitors.first_name}}</p>
+                <p class="card-text">Visitor last name:  {{visitors.last_name}}</p>
                 {% endfor %}
             </div>
         <div>

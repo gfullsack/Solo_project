@@ -16,7 +16,7 @@ class Tea:
         self.updated_at = db_data['updated_at']
         self.founder = None
         self.set_founder();
-        self.vistors = []
+        self.visitors = []
         self.likes = []
 
     @classmethod
@@ -139,9 +139,9 @@ class Tea:
         tea = cls( results[0] )
         for row in results:
             tea.founder = user.User.get_by_id({'id':row['users.id']})
-            tea.vistors.append(user.User.get_by_id({'id':row['visiting_users.id']}))
+            tea.visitors.append(user.User.get_by_id({'id':row['visiting_users.id']}))
             tea.likes.append(user.User.get_by_id({'id':row['liking_users.id']}))
-        print(tea.likes)
+        print(tea.visitors)
         return tea
 
     @classmethod
@@ -152,7 +152,7 @@ class Tea:
 
     @classmethod
     def visit_tea( cls , data ):
-        query = "INSERT INTO visitors (user_id, visitor_id) VALUES (%(user_id)s, %(visitor_id)s);"
+        query = "INSERT INTO visitors (user_id, tea_id) VALUES (%(user_id)s, %(tea_id)s);"
         results = connectToMySQL('teas').query_db(query,data)
         return results 
 

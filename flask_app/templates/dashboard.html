@@ -39,7 +39,9 @@
                     <td style="color:{{ tea.tea_color}}" >{{ tea.tea_color}}</td>
                     <td>{{ tea.location}}</td>
                     <td>{{ tea.founder.first_name }} {{ tea.founder.last_name }}</td>
-                    <td>PlaceHolder</td>
+                    
+                    <td>{{tea.likes|length}}</td>
+                    
                     <td>
                         <a href="/tea/{{tea.id}}">View tea</a>
                         {% if tea.user_id == session.user_id %}
