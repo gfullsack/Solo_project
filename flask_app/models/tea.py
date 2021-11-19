@@ -145,16 +145,34 @@ class Tea:
         return tea
 
     @classmethod
+    def get_all_tea( cls ):
+        query = "SELECT * FROM teas JOIN users ON user_id = users.id LEFT JOIN visitors ON visitors.tea_id = teas.id LEFT JOIN users AS visiting_users ON visitors.user_id = visiting_users.id LEFT JOIN likes ON likes.tea_id = teas.id LEFT JOIN users AS liking_users ON liking_users.id = likes.user_id;"
+        results = connectToMySQL('teas').query_db(query)
+        print(results)
+        # results will be a list of objects with the vistor attached to each row. 
+        tea_list = []
+
+        for row in results:
+            a_tea= cls(row)
+            a_tea.founder = user.User.get_by_id({'id':row['users.id']})
+            a_tea.visitors.append(user.User.get_by_id({'id':row['visiting_users.id']}))
+            a_tea.likes.append(user.User.get_by_id({'id':row['liking_users.id']}))
+            print(a_tea.visitors)
+            tea_list.append(a_tea)
+        return tea_list
+
+
+    @classmethod
     def like_tea( cls , data ):
         query = "INSERT INTO likes (user_id, tea_id) VALUES (%(user_id)s, %(tea_id)s);"
-        results = connectToMySQL('teas').query_db(query,data)
-        return results 
+        return connectToMySQL('teas').query_db(query,data)
+
 
     @classmethod
     def visit_tea( cls , data ):
         query = "INSERT INTO visitors (user_id, tea_id) VALUES (%(user_id)s, %(tea_id)s);"
-        results = connectToMySQL('teas').query_db(query,data)
-        return results 
+        return connectToMySQL('teas').query_db(query,data)
+
 
 
 

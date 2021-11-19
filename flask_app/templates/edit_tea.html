@@ -9,7 +9,7 @@
 </head>
 <body>
     <nav class="d-flex justify-content-between align-items-center col-12">
-        <h2 class="text-center">Arbortary - A site to track arbitrarly planted teas </h2>
+        <h2 class="text-center">Arbortary - A site to track arbitrarly brewed teas </h2>
         <h1 class="text-right">Welcome {{user.first_name}}!!!</h1>
         <div class="d-flex col-4 justify-content-around">
             <a href="/dashboard" class="btn btn-primary">Dashboard</a>
@@ -19,7 +19,7 @@
 
     </nav>
     <form action="/update/tea" method="post" class="col-11 p-4 my-4 bg-dark text-light mx-auto">
-        <h2 class="text-primary">Re-Plant your Tea</h2>
+        <h2 class="text-primary">Re-brew your Tea</h2>
         {% with messages = get_flashed_messages(category_filter=['tea']) %}
             {% if messages %}
             <div class="alert alert-danger" role="alert">
@@ -46,7 +46,7 @@
             <div class="col-4">
 
                 <div class="form-group">
-                    <label for="tea_color">tea_color:</label>
+                    <label for="tea_color">tea color:</label>
                     <textarea name="tea_color"  cols="30" rows="5" class="form-control">{{edit.tea_color}}</textarea>
                 </div>
 

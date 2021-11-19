@@ -28,7 +28,7 @@
                     <th>Tea Color</th>
                     <th>location</th>
                     <th>Brewed By</th>
-                    <!-- <th>Liked By</th> -->
+                    <th>Liked By</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -40,8 +40,10 @@
                     <td>{{ tea.location}}</td>
                     <td>{{ tea.founder.first_name }} {{ tea.founder.last_name }}</td>
                     
-                    <!-- <td>{{tea.likes|length}}</td> -->
-                    
+                    {% for likers in tea.likes %}
+                    <td>{{likers.first_name|length}} </td> 
+                    {% endfor %}
+
                     <td>
                         <a href="/tea/{{tea.id}}">View tea</a>
                         {% if tea.user_id == session.user_id %}
